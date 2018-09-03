@@ -2,6 +2,11 @@
 
 
 BACKPATH="/mnt/jerryHDD/mybackup"
+hb_day_1=10
+hb_day_2=20
+all_day_1=1
+all_day_2=15
+
 year=`date +%Y`
 mon=`date +%m`
 day=`date +%d`
@@ -43,9 +48,9 @@ all_copy(){
 
 do_main(){
 	echo "Starting Backup_check"
-	[ "$day" == "10" -o "$day" == "20" ]&& check_back hb && hb_copy
+	[ "$day" == "$hb_day1" -o "$day" == "$hb_day2" ]&& check_back hb && hb_copy
 
-	[ "$day" == "1" -o "$day" == "15" ]&& check_back all && all_copy
+	[ "$day" == "$all_day1" -o "$day" == "$all_day2" ]&& check_back all && all_copy
 	echo "Backup process done"
 }
 
