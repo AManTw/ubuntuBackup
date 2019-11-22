@@ -3,7 +3,7 @@
 
 BACKPATH="/mnt/jerryHDD/mybackup"
 hb_day_1=10
-hb_day_2=22
+hb_day_2=20
 all_day_1=1
 all_day_2=15
 
