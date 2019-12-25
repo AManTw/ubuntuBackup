@@ -22,8 +22,8 @@ rm_back(){
 			echo "Remove" "$BACKPATH/ubuntu_home_backup@$year-$mon_bk-*.tar.gz"
 			rm -f $BACKPATH/ubuntu_home_backup@$year-$mon_bk-*.tar.gz
 		}
-		[ -e $BACKPATH/ubuntu_book_backup@$year-$mon_bk-*.tar.gz ]&& { 
-			echo "Remove" "$BACKPATH/ubuntu_book_backup@$year-$mon_bk-*.tar.gz"	
+		[ -e $BACKPATH/ubuntu_boot_backup@$year-$mon_bk-*.tar.gz ]&& { 
+			echo "Remove" "$BACKPATH/ubuntu_boot_backup@$year-$mon_bk-*.tar.gz"	
 			rm -f $BACKPATH/ubuntu_book_backup@$year-$mon_bk-*.tar.gz
 		}
 
@@ -48,7 +48,7 @@ check_back(){
 		echo "$BACKPATH/ubuntu_home_backup@$year-$mon-$hb_day_1.tar.gz"
 		
 		[ -e "$BACKPATH/ubuntu_home_backup@$year-$mon-$hb_day_1.tar.gz" ]&& \
-		[ -e "$BACKPATH/ubuntu_book_backup@$year-$mon-$hb_day_1.tar.gz" ]&& return 0	
+		[ -e "$BACKPATH/ubuntu_boot_backup@$year-$mon-$hb_day_1.tar.gz" ]&& return 0	
 
 	elif [ "$1" == "all" ];then
 		[ -e "$BACKPATH/ubuntu_backup@$year-$mon-$all_day_1.tar.gz" ]&& return 0
