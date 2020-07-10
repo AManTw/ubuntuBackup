@@ -14,19 +14,20 @@ day=`date +%d`
 rm_back(){
 
 	#remove 2 month ago backup file
+	echo
 	echo "[BackUP-7] Remove 2 month age backup_File"
 	mon_bk=`date -d "$(date +%m) -2 month" +%m`
 	year_bk=`date -d "$(date +%Y) -2 month" +%Y`
 	echo $year_bk $mon_bk
 	if [ "$1" == "hb" ];then
 
-		[ -e $BACKPATH/ubuntu_home_backup_$year_bk-$mon_bk-*.tar.gz ]&& {
-			echo "Remove" "$BACKPATH/ubuntu_home_backup_$year_bk-$mon_bk-*.tar.gz"
-			rm -f $BACKPATH/ubuntu_home_backup_$year_bk-$mon_bk-*.tar.gz
+		[ -e $BACKPATH/home_backup_$year_bk-$mon_bk-*.tar.gz ]&& {
+			echo "Remove" "$BACKPATH/home_backup_$year_bk-$mon_bk-*.tar.gz"
+			rm -f $BACKPATH/home_backup_$year_bk-$mon_bk-*.tar.gz
 		}
-		[ -e "$BACKPATH/ubuntu_boot_backup_$year_bk-$mon_bk-*.tar.gz" ]&& { 
-			echo "Remove" "$BACKPATH/ubuntu_boot_backup_$year_bk-$mon_bk-*.tar.gz"	
-			rm -f $BACKPATH/ubuntu_book_backup_$year_bk-$mon_bk-*.tar.gz
+		[ -e $BACKPATH/boot_backup_$year_bk-$mon_bk-*.tar.gz ]&& { 
+			echo "Remove" "$BACKPATH/boot_backup_$year_bk-$mon_bk-*.tar.gz"	
+			rm -f $BACKPATH/boot_backup_$year_bk-$mon_bk-*.tar.gz
 		}
 
 	elif [ "$1" == "all" ];then
@@ -37,35 +38,40 @@ rm_back(){
 
 	fi
 	echo "[BackUP-8] Remove backup_File Done!!!"
+	echo
 	return 1
 }
 
 
 check_back(){
+	echo
 	echo "[BackUP-2] Check whether same month backup file."
 	if [ "$1" == "hb" ];then
-		echo "$BACKPATH/ubuntu_home_backup_$year-$mon-$hb_day_1.tar.gz"
 		
-		if [ -e "$BACKPATH/ubuntu_home_backup_$year-$mon-$hb_day_1.tar.gz" ] && [ -e "$BACKPATH/ubuntu_boot_backup_$year-$mon-$hb_day_1.tar.gz" ]; then
+		if [ -e "$BACKPATH/home_backup_$year-$mon-$hb_day_1.tar.gz" ] && [ -e "$BACKPATH/boot_backup_$year-$mon-$hb_day_1.tar.gz" ]; then
 			echo "FAIL"
-			exit 0	
+			return 0
 		fi
+		echo "$BACKPATH/home_backup_$year-$mon-$hb_day_1.tar.gz"
+	
 	elif [ "$1" == "all" ];then
-		[ -e "$BACKPATH/ubuntu_backup_$year-$mon-$all_day_1.tar.gz" ]&& exit 0
+		[ -e "$BACKPATH/ubuntu_backup_$year-$mon-$all_day_1.tar.gz" ]&& return 0
 	fi
+	echo 
 	echo "[BackUP-3] Check backfile  have done"
+	echo
 }
 
 hb_copy(){
 
 	echo "[BackUP-4] Now going to Back UP /home "
-	tar -cvpzf $BACKPATH/ubuntu_home_backup_`date +%Y-%m-%d`.tar.gz  --exclude=/home/jerrychen/.cache/ /home  > home.log
+	tar -cvpzf $BACKPATH/home_backup_`date +%Y-%m-%d`.tar.gz  --exclude=/home/jerrychen/.cache/ /home  > home.log
 
 	echo "[BackUP-5] Now going to Back UP /boot "
-	tar -cvpzf $BACKPATH/ubuntu_boot_backup_`date +%Y-%m-%d`.tar.gz --exclude=/home/jerrychen/.cache/ /boot > boot.log
+	tar -cvpzf $BACKPATH/boot_backup_`date +%Y-%m-%d`.tar.gz --exclude=/home/jerrychen/.cache/ /boot > boot.log
 
 	echo "[BackUP-6] Back Up /home /boot Done !!"
-	return 1
+	#return 1
 }
 
 all_copy(){
