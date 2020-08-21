@@ -3,7 +3,7 @@
 
 BACKPATH="/mnt/jerryHDD/mybackup"
 hb_day_1=10
-hb_day_2=20
+hb_day_2=21
 all_day_1=1
 all_day_2=15
 
@@ -39,7 +39,6 @@ rm_back(){
 	fi
 	echo "[BackUP-8] Remove backup_File Done!!!"
 	echo
-	return 1
 }
 
 
@@ -49,13 +48,16 @@ check_back(){
 	if [ "$1" == "hb" ];then
 		
 		if [ -e "$BACKPATH/home_backup_$year-$mon-$hb_day_1.tar.gz" ] && [ -e "$BACKPATH/boot_backup_$year-$mon-$hb_day_1.tar.gz" ]; then
-			echo "FAIL"
-			return 0
+			echo "FAIL HB EXIT"
+			exit
 		fi
 		echo "$BACKPATH/home_backup_$year-$mon-$hb_day_1.tar.gz"
 	
 	elif [ "$1" == "all" ];then
-		[ -e "$BACKPATH/ubuntu_backup_$year-$mon-$all_day_1.tar.gz" ]&& return 0
+		if [ -e "$BACKPATH/ubuntu_backup_$year-$mon-$all_day_1.tar.gz" ]; then 
+			echo "FAIL ALL"
+			exit
+		fi
 	fi
 	echo 
 	echo "[BackUP-3] Check backfile  have done"
@@ -79,7 +81,7 @@ all_copy(){
 	echo "[BackUP-4] Now going to Back UP all file system /"
 	tar -cvpzf $BACKPATH/ubuntu_backup_`date +%Y-%m-%d`.tar.gz --exclude=/proc --exclude=/tmp --exclude=/lost+found --exclude=/media --exclude=/mnt --exclude=/run / > all.log
 	echo "[BackUP-5] Back Up Done !!"
-	return 1 
+	#return 1 
 }
 
 do_main(){
