@@ -5,7 +5,7 @@ BACKPATH="/mnt/jerryHDD/mybackup"
 hb_day_1=10
 hb_day_2=21
 all_day_1=1
-all_day_2=15
+all_day_2=17
 
 year=`date +%Y`
 mon=`date +%m`
